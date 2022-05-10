@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { CreateUserDto, UpdateUserDto } from "./dto";
 import { User } from "./users.entity";
 
 @Injectable()
@@ -6,7 +7,11 @@ export class UsersService {
   private users: User[] = [
     {
       id: "2",
-      name: "Hello World from Nest.js",
+      name: "Alejandro",
+    },
+    {
+      id: "3",
+      name: "Emmanuel",
     },
   ]
 
@@ -23,14 +28,14 @@ export class UsersService {
     return user
   }
 
-  createUser(name: string) {
+  createUser({ name }: CreateUserDto) {
     this.users.push({
       id: (Math.floor(Math.random() * 2000) + 1).toString(),
       name,
     })
   }
 
-  updateUser(id: string, name: string) {
+  updateUser(id: string, { name }: UpdateUserDto) {
     const user: User = this.getUser(id)
     user.name = name
 
